@@ -1,0 +1,45 @@
+{
+	email {$TLS_EMAIL}
+}
+(shared) {
+	encode zstd gzip
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		X-Frame-Options DENY
+	}
+}
+{$API_HOST} {
+	import shared
+	request_body {
+		max_size 6MB
+	}
+	reverse_proxy api:8080 {
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Real-IP {remote_host}
+	}
+}
+{$CUSTOMER_HOST} {
+	import shared
+	root * /srv/customer
+	try_files {path} /index.html
+	header /index.html Cache-Control no-cache
+	header /flutter_service_worker.js Cache-Control no-cache
+	file_server
+}
+{$MERCHANT_HOST} {
+	import shared
+	root * /srv/merchant
+	try_files {path} /index.html
+	header /index.html Cache-Control no-cache
+	header /flutter_service_worker.js Cache-Control no-cache
+	file_server
+}
+{$ADMIN_HOST} {
+	import shared
+	root * /srv/admin
+	try_files {path} /index.html
+	header /index.html Cache-Control no-cache
+	header /flutter_service_worker.js Cache-Control no-cache
+	file_server
+}

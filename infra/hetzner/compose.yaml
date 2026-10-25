@@ -1,0 +1,96 @@
+name: nevyhadzuj
+services:
+  api:
+    image: ${API_IMAGE:?Set API_IMAGE to the uploaded amd64 image}
+    env_file: .env
+    environment:
+      APP_ENV: production
+      SEED_DEMO: "false"
+      DEMO_SHOWCASE: "false"
+      HOST: 0.0.0.0
+      PORT: "8080"
+      DATABASE_PATH: /data/marketplace.sqlite
+      PAYMENT_MODE: disabled
+      BILLING_SELLER_MODEL: merchantSeller
+    volumes:
+      - marketplace:/data
+    mem_limit: 512m
+    cpus: 1.0
+    pids_limit: 128
+    restart: unless-stopped
+    stop_grace_period: 30s
+    logging: &logging
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+  proxy:
+    image: nginx@sha256:e7257f1ef28ba17cf7c248cb8ccf6f0c6e0228ab9c315c152f9c203cd34cf6d1
+    user: "101:101"
+    entrypoint: ["nginx", "-g", "daemon off;"]
+    ports:
+      - "8452:8452"
+      - "8453:8453"
+      - "8454:8454"
+      - "8455:8455"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../current/web:/srv/customer:ro
+      - ../current/merchant-web:/srv/merchant:ro
+      - ../current/admin-web:/srv/admin:ro
+      - tls:/tls:ro
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,uid=101,gid=101,mode=0700
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 128m
+    cpus: 0.5
+    pids_limit: 64
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+    logging: *logging
+  backup:
+    image: ${API_IMAGE:?Set API_IMAGE}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        while true; do
+          python3 /app/backup.py backup /data/marketplace.sqlite --target "/backups/nvp-$$(date -u +%Y%m%dT%H%M%SZ).sqlite" || exit 1
+          find /backups -name 'nvp-*.sqlite*' -type f -mtime +30 -delete
+          sleep 86400
+        done
+    volumes:
+      - marketplace:/data
+      - backups:/backups
+    healthcheck:
+      test:
+        - CMD
+        - python3
+        - -c
+        - "import json; from datetime import datetime, timezone; from pathlib import Path; m=json.loads(Path('/data/marketplace.sqlite.backup.json').read_text()); assert m['integrity']=='ok' and (datetime.now(timezone.utc)-datetime.fromisoformat(m['createdAt'])).total_seconds()<93600"
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+    depends_on:
+      api:
+        condition: service_healthy
+    mem_limit: 128m
+    cpus: 0.25
+    pids_limit: 32
+    restart: on-failure
+    logging: *logging
+volumes:
+  marketplace:
+  backups:
+  tls:
+    name: nevyhadzuj_tls
+    external: true

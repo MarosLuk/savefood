@@ -1,0 +1,17 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      HOST: 0.0.0.0
+      DATABASE_PATH: /data/marketplace.sqlite
+      PAYMENT_MODE: sandbox
+      SEED_DEMO: "true"
+    volumes:
+      - marketplace:/data
+    restart: unless-stopped
+volumes:
+  marketplace:

@@ -1,0 +1,102 @@
+name: Release builds
+on:
+  workflow_dispatch:
+    inputs:
+      api_url:
+        description: Public HTTPS API base URL
+        required: true
+        type: string
+      build_number:
+        description: Increasing store build number
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.1'
+          cache: true
+      - name: Validate release inputs and install signing key
+        env:
+          RELEASE_API: ${{ inputs.api_url }}
+          RELEASE_NUMBER: ${{ inputs.build_number }}
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          python3 - <<'PY'
+          import base64, os
+          from pathlib import Path
+          from urllib.parse import urlparse
+          endpoint=urlparse(os.environ['RELEASE_API'])
+          if endpoint.scheme!='https' or not endpoint.hostname or endpoint.username or endpoint.query:
+              raise SystemExit('Release API must be a public HTTPS origin.')
+          if not os.environ['RELEASE_NUMBER'].isdigit():
+              raise SystemExit('Build number must be an integer.')
+          names=['ANDROID_KEYSTORE_BASE64','ANDROID_STORE_PASSWORD','ANDROID_KEY_PASSWORD','ANDROID_KEY_ALIAS']
+          if any(not os.environ.get(k) for k in names):
+              raise SystemExit('Configure all four Android signing secrets before release.')
+          key=Path('apps/mobile/android/upload-keystore.jks').resolve()
+          key.write_bytes(base64.b64decode(os.environ['ANDROID_KEYSTORE_BASE64'],validate=True))
+          key.chmod(0o600)
+          def escape(v):
+              return v.replace('\\','\\\\').replace('\n','\\n').replace('\r','\\r').replace('=','\\=').replace(':','\\:')
+          values={'storeFile':str(key),'storePassword':os.environ['ANDROID_STORE_PASSWORD'],'keyPassword':os.environ['ANDROID_KEY_PASSWORD'],'keyAlias':os.environ['ANDROID_KEY_ALIAS']}
+          Path('apps/mobile/android/key.properties').write_text('\n'.join(k+'='+escape(v) for k,v in values.items()))
+          PY
+      - run: flutter pub get
+      - name: Build signed Android bundle
+        working-directory: apps/mobile
+        env:
+          RELEASE_API: ${{ inputs.api_url }}
+          RELEASE_NUMBER: ${{ inputs.build_number }}
+        run: flutter build appbundle --release --build-number="$RELEASE_NUMBER" --dart-define="API_BASE_URL=$RELEASE_API"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-store-bundle
+          path: apps/mobile/build/app/outputs/bundle/release/*.aab
+          retention-days: 7
+      - name: Remove signing material
+        if: always()
+        run: rm -f apps/mobile/android/key.properties apps/mobile/android/upload-keystore.jks
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.1'
+          cache: true
+      - run: flutter pub get
+      - name: Build all web entry points
+        env:
+          RELEASE_API: ${{ inputs.api_url }}
+        run: |
+          python3 - <<'PY'
+          import os
+          from urllib.parse import urlparse
+          p=urlparse(os.environ['RELEASE_API'])
+          if p.scheme!='https' or not p.hostname or p.username or p.query:
+              raise SystemExit('Release API must use HTTPS.')
+          PY
+          (cd apps/mobile && flutter build web --release --dart-define="API_BASE_URL=$RELEASE_API")
+          bash tool/build_merchant_web.sh --dart-define="API_BASE_URL=$RELEASE_API"
+          bash tool/build_admin_web.sh --dart-define="API_BASE_URL=$RELEASE_API"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-portals
+          path: |
+            apps/mobile/build/web
+            apps/mobile/build/merchant-web
+            apps/mobile/build/admin-web
+          retention-days: 7

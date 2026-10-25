@@ -1,0 +1,9 @@
+name: marketplace_domain
+description: Pure Dart models and business rules for Nevyhadzuj.
+version: 0.1.0
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.10.0
+dev_dependencies:
+  test: ^1.26.3

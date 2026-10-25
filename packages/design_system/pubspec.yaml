@@ -1,0 +1,11 @@
+name: design_system
+description: Shared blue visual language for Nevyhadzuj apps.
+version: 0.1.0
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.10.0
+dependencies:
+  flutter:
+    sdk: flutter
+  phosphor_flutter: 2.1.0

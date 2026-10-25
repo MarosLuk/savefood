@@ -1,0 +1,16 @@
+{
+  "API_BASE_URL": "http://localhost:8080",
+  "MAP_TILE_URL": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+  "MAP_DARK_TILE_URL": "",
+  "MAP_ATTRIBUTION": "© OpenStreetMap contributors",
+  "MAP_ATTRIBUTION_URL": "https://www.openstreetmap.org/copyright",
+  "FIREBASE_API_KEY": "",
+  "FIREBASE_APP_ID": "",
+  "FIREBASE_MESSAGING_SENDER_ID": "",
+  "FIREBASE_PROJECT_ID": "",
+  "FIREBASE_AUTH_ENABLED": false,
+  "FIREBASE_AUTH_DOMAIN": "",
+  "GOOGLE_SIGN_IN_CLIENT_ID": "",
+  "GOOGLE_SIGN_IN_SERVER_CLIENT_ID": "",
+  "FIREBASE_VAPID_KEY": ""
+}

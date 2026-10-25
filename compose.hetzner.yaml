@@ -1,0 +1,67 @@
+name: nevyhadzuj
+services:
+  api:
+    image: nevyhadzuj-api:local
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    env_file: .env.hetzner
+    environment:
+      APP_ENV: production
+      SEED_DEMO: "false"
+      DEMO_SHOWCASE: "false"
+      HOST: 0.0.0.0
+      DATABASE_PATH: /data/marketplace.sqlite
+      PAYMENT_MODE: disabled
+      BILLING_SELLER_MODEL: merchantSeller
+    volumes:
+      - marketplace-production:/data
+    restart: unless-stopped
+    stop_grace_period: 30s
+  proxy:
+    image: caddy:2.11.7
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+      - "8443:8443"
+      - "8443:8443/udp"
+      - "9443:9443"
+      - "9443:9443/udp"
+      - "10443:10443"
+      - "10443:10443/udp"
+    env_file: .env.hetzner
+    volumes:
+      - ./infra/Caddyfile.ip:/etc/caddy/Caddyfile:ro
+      - ./apps/mobile/build/hetzner-web:/srv/customer:ro
+      - ./apps/mobile/build/hetzner-merchant-web:/srv/merchant:ro
+      - ./apps/mobile/build/hetzner-admin-web:/srv/admin:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+  backup:
+    image: nevyhadzuj-api:local
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        while true; do
+          python3 /app/backup.py backup /data/marketplace.sqlite --target "/backups/nvp-$$(date -u +%Y%m%dT%H%M%SZ).sqlite" || exit 1
+          sleep 86400
+        done
+    volumes:
+      - marketplace-production:/data
+      - backups-production:/backups
+    healthcheck:
+      disable: true
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: on-failure
+volumes:
+  marketplace-production:
+  backups-production:
+  caddy-data:
+  caddy-config:

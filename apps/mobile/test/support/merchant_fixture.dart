@@ -1,0 +1,151 @@
+import 'package:marketplace_data/marketplace_data.dart';
+import 'package:marketplace_domain/marketplace_domain.dart';
+
+Map<String, dynamic> merchantFixture({String role = 'owner'}) {
+  final offer = seedCatalog(DateTime(2026, 10, 24, 12)).first.toJson()
+    ..['image'] = 'bread';
+  return {
+    'organizations': [
+      {
+        'id': 'org',
+        'name': 'Dobrá pekáreň s.r.o.',
+        'companyId': '12345678',
+        'contactEmail': 'owner@example.test',
+        'role': role,
+      },
+    ],
+    'stores': [
+      {
+        'id': 'store',
+        'organizationId': 'org',
+        'name': 'Pekáreň Maslo · Centrum',
+        'kind': 'bakery',
+        'address': 'Štefánikova 12, Bratislava',
+        'point': {'lat': 48.15, 'lng': 17.1},
+      },
+      {
+        'id': 'store2',
+        'organizationId': 'org',
+        'name': 'Pekáreň Maslo · Ružinov',
+        'kind': 'bakery',
+        'address': 'Ružová 2, Bratislava',
+        'point': {'lat': 48.16, 'lng': 17.16},
+      },
+    ],
+    'products': [
+      {
+        'id': 'product',
+        'organizationId': 'org',
+        'sku': '000123',
+        'name': 'Kváskový chlieb',
+        'category': 'bakery',
+        'unit': 'piece',
+        'unitValue': 400,
+        'allergens': 'Lepok',
+        'storage': 'ambient',
+        'image': 'bread',
+      },
+      {
+        'id': 'product2',
+        'organizationId': 'org',
+        'sku': '000124',
+        'name': 'Maslový croissant',
+        'category': 'bakery',
+        'unit': 'piece',
+        'unitValue': 250,
+        'allergens': 'Lepok, mlieko, vajcia',
+        'storage': 'ambient',
+        'image': 'bakery',
+      },
+    ],
+    'lots': [
+      {
+        'id': 'lot',
+        'storeId': 'store',
+        'productId': 'product',
+        'lotCode': 'PEK-2410-A',
+        'onHand': 24,
+        'reserved': 6,
+        'deadline': '2026-10-25T21:00:00Z',
+        'dateType': 'bestBefore',
+        'quality': 'checked',
+        'version': 1,
+      },
+      {
+        'id': 'lot2',
+        'storeId': 'store',
+        'productId': 'product2',
+        'lotCode': 'PEK-2410-B',
+        'onHand': 36,
+        'reserved': 4,
+        'deadline': '2026-10-24T21:59:00Z',
+        'dateType': 'useBy',
+        'quality': 'checked',
+        'version': 1,
+      },
+      {
+        'id': 'lot3',
+        'storeId': 'store',
+        'productId': 'product2',
+        'lotCode': 'PEK-2410-C',
+        'onHand': 8,
+        'reserved': 0,
+        'deadline': '2026-10-25T21:59:00Z',
+        'dateType': 'useBy',
+        'quality': 'quarantine',
+        'version': 1,
+      },
+    ],
+    'offers': [
+      {
+        'offer': offer,
+        'storeId': 'store',
+        'state': 'draft',
+        'recipe': {'product': 1, 'product2': 2},
+        'available': 9,
+        'ruleId': 'rule',
+      },
+    ],
+    'rules': [
+      {
+        'id': 'rule',
+        'storeId': 'store',
+        'name': 'Voňavý záver dňa',
+        'category': 'bakery',
+        'storage': 'ambient',
+        'daysBefore': 1,
+        'targetValue': 900,
+        'discountPercent': 60,
+        'maxPacks': 20,
+        'startMinutes': 960,
+        'endMinutes': 1080,
+        'autoPublish': false,
+        'enabled': true,
+      },
+    ],
+    'orders': [
+      {
+        'id': '12345678-order',
+        'status': 'reserved',
+        'createdAt': '2026-10-24T10:00:00Z',
+        'atRisk': false,
+        'items': [
+          OrderItem(
+            offerId: offer['id'] as String,
+            store: 'Pekáreň Maslo',
+            title: 'Voňavý záver dňa',
+            image: 'bread',
+            quantity: 1,
+            unitPrice: 360,
+            pickupStart: DateTime(2026, 10, 24, 16),
+            pickupEnd: DateTime(2026, 10, 24, 18),
+            address: 'Štefánikova 12',
+          ).toJson(),
+        ],
+      },
+    ],
+    'movements': [],
+    'integrations': [],
+    'members': [],
+  };
+}

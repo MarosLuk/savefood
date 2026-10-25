@@ -1,0 +1,56 @@
+{
+	email {$TLS_EMAIL}
+	# IP clients omit SNI; Docker sees the private container IP instead of the public IP.
+	default_sni {$PUBLIC_IP}
+}
+(ip_tls) {
+	tls {
+		issuer acme https://acme-v02.api.letsencrypt.org/directory {
+			profile shortlived
+		}
+	}
+	encode zstd gzip
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		X-Frame-Options DENY
+	}
+}
+http://{$PUBLIC_IP}:80 {
+	# A single IP has several HTTPS ports; choose the customer entry explicitly.
+	redir https://{$PUBLIC_IP}{uri} permanent
+}
+https://{$PUBLIC_IP}:443 {
+	import ip_tls
+	root * /srv/customer
+	try_files {path} /index.html
+	header /index.html Cache-Control no-cache
+	header /flutter_service_worker.js Cache-Control no-cache
+	file_server
+}
+https://{$PUBLIC_IP}:8443 {
+	import ip_tls
+	request_body {
+		max_size 6MB
+	}
+	reverse_proxy api:8080 {
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Real-IP {remote_host}
+	}
+}
+https://{$PUBLIC_IP}:9443 {
+	import ip_tls
+	root * /srv/merchant
+	try_files {path} /index.html
+	header /index.html Cache-Control no-cache
+	header /flutter_service_worker.js Cache-Control no-cache
+	file_server
+}
+https://{$PUBLIC_IP}:10443 {
+	import ip_tls
+	root * /srv/admin
+	try_files {path} /index.html
+	header /index.html Cache-Control no-cache
+	header /flutter_service_worker.js Cache-Control no-cache
+	file_server
+}

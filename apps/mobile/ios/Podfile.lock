@@ -1,0 +1,332 @@
+PODS:
+  - AppAuth (2.1.0):
+    - AppAuth/Core (= 2.1.0)
+    - AppAuth/ExternalUserAgent (= 2.1.0)
+  - AppAuth/Core (2.1.0)
+  - AppAuth/ExternalUserAgent (2.1.0):
+    - AppAuth/Core
+  - AppCheckCore (11.3.2):
+    - GoogleUtilities/Environment (~> 8.0)
+    - GoogleUtilities/UserDefaults (~> 8.0)
+    - PromisesObjC (~> 2.4)
+    - PromisesSwift (~> 2.4)
+    - RecaptchaInterop (~> 101.0)
+  - Firebase/Auth (12.19.3):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 12.19.0)
+  - Firebase/CoreOnly (12.19.3):
+    - FirebaseCore (~> 12.19.3)
+  - Firebase/Messaging (12.19.3):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 12.19.0)
+  - firebase_auth (6.7.1):
+    - Firebase/Auth (= 12.19.3)
+    - firebase_core
+    - Flutter
+  - firebase_core (4.15.1):
+    - Firebase/CoreOnly (= 12.19.3)
+    - Flutter
+  - firebase_messaging (16.7.1):
+    - Firebase/Messaging (= 12.19.3)
+    - firebase_core
+    - Flutter
+  - FirebaseAppCheckInterop (12.19.0)
+  - FirebaseAuth (12.19.0):
+    - FirebaseAppCheckInterop (~> 12.19.0)
+    - FirebaseAuthInterop (~> 12.19.0)
+    - FirebaseCore (~> 12.19.0)
+    - FirebaseCoreExtension (~> 12.19.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 8.1)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GTMSessionFetcher/Core (< 6.0, >= 3.4)
+    - RecaptchaInterop (~> 101.0)
+  - FirebaseAuthInterop (12.19.0)
+  - FirebaseCore (12.19.3):
+    - FirebaseCoreInternal (~> 12.19.0)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GoogleUtilities/Logger (~> 8.1)
+  - FirebaseCoreExtension (12.19.0):
+    - FirebaseCore (~> 12.19.0)
+  - FirebaseCoreInternal (12.19.0):
+    - "GoogleUtilities/NSData+zlib (~> 8.1)"
+  - FirebaseInstallations (12.19.0):
+    - FirebaseCore (~> 12.19.0)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GoogleUtilities/UserDefaults (~> 8.1)
+    - PromisesObjC (~> 2.4)
+  - FirebaseMessaging (12.19.0):
+    - FirebaseCore (~> 12.19.0)
+    - FirebaseInstallations (~> 12.19.0)
+    - GoogleDataTransport (~> 10.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 8.1)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GoogleUtilities/Reachability (~> 8.1)
+    - GoogleUtilities/UserDefaults (~> 8.1)
+    - nanopb (~> 3.30910.0)
+  - Flutter (1.0.0)
+  - flutter_local_notifications (0.0.1):
+    - Flutter
+  - flutter_secure_storage (6.0.0):
+    - Flutter
+  - geolocator_apple (1.2.0):
+    - Flutter
+    - FlutterMacOS
+  - google_sign_in_ios (0.0.1):
+    - Flutter
+    - FlutterMacOS
+    - GoogleSignIn (~> 9.0)
+    - GTMSessionFetcher (>= 3.4.0)
+  - GoogleDataTransport (10.1.1):
+    - nanopb (~> 3.30910.0)
+    - PromisesObjC (~> 2.4)
+  - GoogleSignIn (9.2.0):
+    - AppAuth (~> 2.1)
+    - AppCheckCore (~> 11.0)
+    - GTMAppAuth (~> 5.0)
+    - GTMSessionFetcher/Core (~> 3.3)
+  - GoogleUtilities/AppDelegateSwizzler (8.1.5):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Environment (8.1.5):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Logger (8.1.5):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Network (8.1.5):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Privacy
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (8.1.5)":
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (8.1.5)
+  - GoogleUtilities/Reachability (8.1.5):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/UserDefaults (8.1.5):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
+  - GTMAppAuth (5.0.0):
+    - AppAuth/Core (~> 2.0)
+    - GTMSessionFetcher/Core (< 4.0, >= 3.3)
+  - GTMSessionFetcher (3.5.0):
+    - GTMSessionFetcher/Full (= 3.5.0)
+  - GTMSessionFetcher/Core (3.5.0)
+  - GTMSessionFetcher/Full (3.5.0):
+    - GTMSessionFetcher/Core
+  - image_picker_ios (0.0.1):
+    - Flutter
+  - integration_test (0.0.1):
+    - Flutter
+  - nanopb (3.30910.0):
+    - nanopb/decode (= 3.30910.0)
+    - nanopb/encode (= 3.30910.0)
+  - nanopb/decode (3.30910.0)
+  - nanopb/encode (3.30910.0)
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - PromisesObjC (2.4.1)
+  - PromisesSwift (2.4.1):
+    - PromisesObjC (= 2.4.1)
+  - RecaptchaInterop (101.0.0)
+  - share_plus (0.0.1):
+    - Flutter
+  - shared_preferences_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - Stripe (25.15.0):
+    - StripeApplePay (= 25.15.0)
+    - StripeCore (= 25.15.0)
+    - StripeIssuing (= 25.15.0)
+    - StripePayments (= 25.15.0)
+    - StripePaymentsUI (= 25.15.0)
+    - StripeUICore (= 25.15.0)
+  - stripe_ios (0.0.1):
+    - Flutter
+    - Stripe (~> 25.15.0)
+    - stripe_ios/stripe_ios (= 0.0.1)
+    - stripe_ios/stripe_objc (= 0.0.1)
+    - StripeApplePay (~> 25.15.0)
+    - StripeFinancialConnections (~> 25.15.0)
+    - StripePayments (~> 25.15.0)
+    - StripePaymentSheet (~> 25.15.0)
+    - StripePaymentsUI (~> 25.15.0)
+  - stripe_ios/stripe_ios (0.0.1):
+    - Flutter
+    - Stripe (~> 25.15.0)
+    - stripe_ios/stripe_objc
+    - StripeApplePay (~> 25.15.0)
+    - StripeFinancialConnections (~> 25.15.0)
+    - StripePayments (~> 25.15.0)
+    - StripePaymentSheet (~> 25.15.0)
+    - StripePaymentsUI (~> 25.15.0)
+  - stripe_ios/stripe_objc (0.0.1):
+    - Flutter
+    - Stripe (~> 25.15.0)
+    - StripeApplePay (~> 25.15.0)
+    - StripeFinancialConnections (~> 25.15.0)
+    - StripePayments (~> 25.15.0)
+    - StripePaymentSheet (~> 25.15.0)
+    - StripePaymentsUI (~> 25.15.0)
+  - StripeApplePay (25.15.0):
+    - StripeCore (= 25.15.0)
+  - StripeCore (25.15.0)
+  - StripeFinancialConnections (25.15.0):
+    - StripeCore (= 25.15.0)
+    - StripeUICore (= 25.15.0)
+  - StripeIssuing (25.15.0):
+    - StripeCore (= 25.15.0)
+    - StripePayments (= 25.15.0)
+    - StripePaymentsUI (= 25.15.0)
+  - StripePayments (25.15.0):
+    - StripeCore (= 25.15.0)
+    - StripePayments/Stripe3DS2 (= 25.15.0)
+  - StripePayments/Stripe3DS2 (25.15.0):
+    - StripeCore (= 25.15.0)
+  - StripePaymentSheet (25.15.0):
+    - StripeApplePay (= 25.15.0)
+    - StripeCore (= 25.15.0)
+    - StripePayments (= 25.15.0)
+    - StripePaymentsUI (= 25.15.0)
+  - StripePaymentsUI (25.15.0):
+    - StripeCore (= 25.15.0)
+    - StripePayments (= 25.15.0)
+    - StripeUICore (= 25.15.0)
+  - StripeUICore (25.15.0):
+    - StripeCore (= 25.15.0)
+  - url_launcher_ios (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
+  - Flutter (from `Flutter`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
+  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - geolocator_apple (from `.symlinks/plugins/geolocator_apple/darwin`)
+  - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/darwin`)
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - share_plus (from `.symlinks/plugins/share_plus/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - stripe_ios (from `.symlinks/plugins/stripe_ios/ios`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+
+SPEC REPOS:
+  trunk:
+    - AppAuth
+    - AppCheckCore
+    - Firebase
+    - FirebaseAppCheckInterop
+    - FirebaseAuth
+    - FirebaseAuthInterop
+    - FirebaseCore
+    - FirebaseCoreExtension
+    - FirebaseCoreInternal
+    - FirebaseInstallations
+    - FirebaseMessaging
+    - GoogleDataTransport
+    - GoogleSignIn
+    - GoogleUtilities
+    - GTMAppAuth
+    - GTMSessionFetcher
+    - nanopb
+    - PromisesObjC
+    - PromisesSwift
+    - RecaptchaInterop
+    - Stripe
+    - StripeApplePay
+    - StripeCore
+    - StripeFinancialConnections
+    - StripeIssuing
+    - StripePayments
+    - StripePaymentSheet
+    - StripePaymentsUI
+    - StripeUICore
+
+EXTERNAL SOURCES:
+  firebase_auth:
+    :path: ".symlinks/plugins/firebase_auth/ios"
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_messaging:
+    :path: ".symlinks/plugins/firebase_messaging/ios"
+  Flutter:
+    :path: Flutter
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
+  flutter_secure_storage:
+    :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  geolocator_apple:
+    :path: ".symlinks/plugins/geolocator_apple/darwin"
+  google_sign_in_ios:
+    :path: ".symlinks/plugins/google_sign_in_ios/darwin"
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  share_plus:
+    :path: ".symlinks/plugins/share_plus/ios"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
+  stripe_ios:
+    :path: ".symlinks/plugins/stripe_ios/ios"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
+
+SPEC CHECKSUMS:
+  AppAuth: ef4da5a3fc2e10b90c09a0a94a9baeaedc0341d5
+  AppCheckCore: be8fce5469f68d7f6a29aa94b25f097409ff7fdc
+  Firebase: e3c5ab38229ae085490d02398d97b9f5374bbe6e
+  firebase_auth: 749e959255e42e6ca6ec2ecc83a0e1ce55d384fe
+  firebase_core: 7a55377761a8e210c2d95459fe1392248faa023f
+  firebase_messaging: d66dd9b68ca259955678628aa4f3e4294d055790
+  FirebaseAppCheckInterop: bd4b791ffaed7ae719304af6369d243ddee5e4a0
+  FirebaseAuth: 8c38236f67e5e3dd6aacf3e0c46b3eed31e9c820
+  FirebaseAuthInterop: f1ad187a0052276ad49a990538accfdf36fc595d
+  FirebaseCore: ab948de5d99e69aeed3cd6f5ace263ce795b2559
+  FirebaseCoreExtension: 201c78d7491a273d61d8afbf491214276a951e6d
+  FirebaseCoreInternal: 656b1c2fd5a1c5976183dc54b73deda78fb26ee3
+  FirebaseInstallations: f70a49eed611f5602f373e40974b3b01556ac217
+  FirebaseMessaging: c15f48126adbe8b4d3238a5e1fa24bab3ad3e472
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  flutter_local_notifications: a5a732f069baa862e728d839dd2ebb904737effb
+  flutter_secure_storage: 1ed9476fba7e7a782b22888f956cce43e2c62f13
+  geolocator_apple: ab36aa0e8b7d7a2d7639b3b4e48308394e8cef5e
+  google_sign_in_ios: d66ab4c862f03eb4b3cac147ba2d9d7e56ef03f7
+  GoogleDataTransport: a24e58982ab3ba2f64d79613e027fe7f57e88539
+  GoogleSignIn: e449a40a92e9f2eea56e98b5214d13725dc5a00a
+  GoogleUtilities: 7dc09b3fa9ecb5c2298b952313d14628b61b9da3
+  GTMAppAuth: 217a876b249c3c585a54fd6f73e6b58c4f5c4238
+  GTMSessionFetcher: 5aea5ba6bd522a239e236100971f10cb71b96ab6
+  image_picker_ios: e0ece4aa2a75771a7de3fa735d26d90817041326
+  integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
+  nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
+  path_provider_foundation: bb55f6dbba17d0dccd6737fe6f7f34fbd0376880
+  PromisesObjC: 752c3227f599e3467650e47ea36f433eeb10c273
+  PromisesSwift: 217dea0fd5d2ad65222a109c48698add13cc1c5b
+  RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
+  share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
+  shared_preferences_foundation: 7036424c3d8ec98dfe75ff1667cb0cd531ec82bb
+  Stripe: 438c2683199eed851e3fca2ee0156904ff166ce0
+  stripe_ios: f968fb7800fcf0bad0661b8bc25b7e64a0a2ff39
+  StripeApplePay: 983321574dc364226bef883994457d931289bcbc
+  StripeCore: 8645a446637112586f6a862d2a000e7d8f5fc988
+  StripeFinancialConnections: 66d4d828e5e47c674b2e539c5872414c2100e60a
+  StripeIssuing: 1b21db879c6ec8eaba89af69ea654ce29333d322
+  StripePayments: 1fe0ba59551bf2b5be62707694a2c40df01b195f
+  StripePaymentSheet: d706de7ac354470ada1d1e0fa82de2be3e08ba1d
+  StripePaymentsUI: 260125f3da77ba8010dcc89319da8549f94e7bd4
+  StripeUICore: dd9ff37d3236763162914d8f19edd0c0c3f54861
+  url_launcher_ios: 7a95fa5b60cc718a708b8f2966718e93db0cef1b
+
+PODFILE CHECKSUM: 0b10fac6e5e3efee6ef83da9df6866538190ec8f
+
+COCOAPODS: 1.17.0

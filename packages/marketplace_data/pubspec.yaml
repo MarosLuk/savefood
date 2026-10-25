@@ -1,0 +1,17 @@
+name: marketplace_data
+description: Local repositories and illustrative catalog for Nevyhadzuj.
+version: 0.1.0
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.10.0
+dependencies:
+  flutter:
+    sdk: flutter
+  marketplace_domain: ^0.1.0
+  marketplace_fixtures: ^0.1.0
+  marketplace_api: ^0.1.0
+  shared_preferences: 2.5.3
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

@@ -1,0 +1,8 @@
+name: marketplace_fixtures
+publish_to: none
+version: 0.1.0
+resolution: workspace
+environment:
+  sdk: ^3.10.0
+dependencies:
+  marketplace_domain: ^0.1.0

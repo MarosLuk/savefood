@@ -1,0 +1,14 @@
+name: nevyhadzuj_workspace
+publish_to: none
+environment:
+  sdk: ^3.10.0
+workspace:
+  - apps/mobile
+  - apps/api
+  - packages/marketplace_fixtures
+  - packages/marketplace_api
+  - packages/marketplace_domain
+  - packages/marketplace_data
+  - packages/design_system
+dev_dependencies:
+  flutter_lints: ^6.0.0
